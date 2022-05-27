@@ -9,9 +9,9 @@ var simularPos = false;
 var usarGeoAR = true;
 var usarBloom = false;
 var lista = [
-  { lt: -34.88441873744777, lg: -57.004631025617414 }, //entrada -34.884431, -58.004660
-  { lt: -34.886436, lg: -57.005834 }, //tanque de agua -34.886436, -58.005834
-  { lt: -34.887017, lg: -57.004962 }, //laboratorio UPL -34.887017, -58.004962
+  { lt: -34.88441873744777, lg: -58.004631025617414 }, //entrada -34.884431, -58.004660
+  { lt: -34.886436, lg: -58.005834 }, //tanque de agua -34.886436, -58.005834
+  { lt: -34.887017, lg: -58.004962 }, //laboratorio UPL -34.887017, -58.004962
 ];
 var posLuces = [new THREE.Vector2(0, 0), new THREE.Vector2(105, 0), new THREE.Vector2(-105, 0), new THREE.Vector2(0, -105), new THREE.Vector2(0, 105)];
 var indice;
