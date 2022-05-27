@@ -11,7 +11,7 @@ subtitulo.style.color = "#ffffff";
 titulo.style.textAlign = "center";
 subtitulo.style.textAlign = "center";
 
-titulo.innerText = "Espere un momento v0.5";
+titulo.innerText = "Espere un momento v0.6";
 subtitulo.innerText = "Cargando ubicacion";
 
 texto.append(titulo);
