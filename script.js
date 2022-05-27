@@ -40,7 +40,7 @@ for (var i = 0; i < 11; i++) {
 //escena.appendChild(punto);
 
 cargarModelo("./modelo/panredu2.glb", panuelo);
-panuelo.scale.set(15, 15, 15);
+panuelo.scale.set(3, 3, 3);
 
 var objeto = new THREE.Object3D();
 console.log("version 3 con varios puntos nuevitaaa con sistema mejorado por distancia ");
@@ -70,7 +70,7 @@ subtitulo.style.color = "#ffffff";
 titulo.style.textAlign = "center";
 subtitulo.style.textAlign = "center";
 
-titulo.innerText = "Espere un momento";
+titulo.innerText = "Espere un momento v 0.16";
 subtitulo.innerText = "Cargando ubicacion";
 
 texto.append(titulo);
@@ -127,13 +127,13 @@ animar();
 
 function mover() {
   for (let i = 0; i < particulas.length; i++) {
-    let acc = particulas[i].alejar(poss[0], 30);
-    let acc2 = particulas[i].acercar(poss[0], 140);
+    let acc = particulas[i].alejar(poss[0], 4);
+    let acc2 = particulas[i].acercar(poss[0], 20);
     particulas[i].vel.add(acc);
     particulas[i].vel.add(acc2);
     for (let j = 0; j < cant; j++) {
       if (i != j) {
-        let acc3 = particulas[i].alejar(particulas[j].pos, 15);
+        let acc3 = particulas[i].alejar(particulas[j].pos, 2);
         particulas[i].vel.add(acc3);
       }
     }
