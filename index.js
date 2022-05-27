@@ -1,3 +1,23 @@
+var texto = document.createElement("div");
+var titulo = document.createElement("h1");
+var subtitulo = document.createElement("h2");
+texto.style.position = "absolute";
+texto.style.top = "10px";
+texto.style.left = "50%";
+texto.style.transform = "translate(-50%,0%)";
+
+titulo.style.color = "#ffffff";
+subtitulo.style.color = "#ffffff";
+titulo.style.textAlign = "center";
+subtitulo.style.textAlign = "center";
+
+titulo.innerText = "Espere un momento v0.5";
+subtitulo.innerText = "Cargando ubicacion";
+
+texto.append(titulo);
+texto.append(subtitulo);
+document.body.append(texto);
+
 function isMobile() {
   if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     // true for mobile device
