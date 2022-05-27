@@ -9,7 +9,7 @@ var simularPos = false;
 var usarGeoAR = true;
 var usarBloom = false;
 var lista = [
-  { lt: -34.884431, lg: -57.00466 }, //entrada -34.884431, -58.004660
+  { lt: -34.88441873744777, lg: -57.004631025617414 }, //entrada -34.884431, -58.004660
   { lt: -34.886436, lg: -57.005834 }, //tanque de agua -34.886436, -58.005834
   { lt: -34.887017, lg: -57.004962 }, //laboratorio UPL -34.887017, -58.004962
 ];
@@ -135,7 +135,7 @@ subtitulo.style.color = "#ffffff";
 titulo.style.textAlign = "center";
 subtitulo.style.textAlign = "center";
 
-titulo.innerText = "Espere un momento v0.3";
+titulo.innerText = "Espere un momento v0.4";
 subtitulo.innerText = "Cargando ubicacion";
 
 texto.append(titulo);
@@ -157,17 +157,18 @@ function animar() {
   subtitulo.innerText = "";
   if (puntos[0].getAttribute("distanceMsg") != undefined) {
     console.log(1, puntos[0].getAttribute("distanceMsg"));
-    subtitulo.innerText += "Distancia Entrada ≈ " + puntos[0].getAttribute("distanceMsg") + "\n";
+    subtitulo.innerText += "Distancia Entrada ≈ " + puntos[0].getAttribute("distance") + "\n";
   } else {
-    console.log("asdasdasd");
+    subtitulo.innerText += "SIN DATOS";
+    console.log("++");
   }
   if (puntos[1].getAttribute("distanceMsg") != undefined) {
     console.log(2, puntos[1].getAttribute("distanceMsg"));
-    subtitulo.innerText += "Distancia Tanque ≈ " + puntos[1].getAttribute("distanceMsg") + "\n";
+    subtitulo.innerText += "Distancia Tanque ≈ " + puntos[1].getAttribute("distance") + "\n";
   }
   if (puntos[2].getAttribute("distanceMsg") != undefined) {
     console.log(3, puntos[2].getAttribute("distanceMsg"));
-    subtitulo.innerText += "Distancia UPL ≈ " + puntos[2].getAttribute("distanceMsg") + "\n";
+    subtitulo.innerText += "Distancia UPL ≈ " + puntos[2].getAttribute("distance") + "\n";
   }
   if (imprimirD) {
     var imprimir = true;
