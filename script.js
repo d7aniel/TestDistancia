@@ -74,7 +74,7 @@ for (var i = 0; i < lista.length; i++) {
     puntos[i].setAttribute("id", "punto" + i);
     console.log("creando " + `latitude: ${lista[i].lt}; longitude: ${lista[i].lg};`);
     puntos[i].setAttribute("gps-entity-place", `latitude: ${lista[i].lt}; longitude: ${lista[i].lg};`);
-    puntos[i].setAttribute("scale", "0.001 0.001 0.001");
+    puntos[i].setAttribute("scale", "0.1 0.1 0.1");
   } else {
     // <a-entity =""></a-entity>
     puntos[i].setAttribute("scale", "0.004 0.004 0.004");
@@ -155,23 +155,23 @@ function animar() {
     }*/
 
   subtitulo.innerText = "";
-  subtitulo.style.color = "#ffffff";
+  //   subtitulo.style.color = "#ffffff";
   if (puntos[0].getAttribute("distanceMsg") != undefined) {
     console.log(1, puntos[0].getAttribute("distanceMsg"));
-    subtitulo.style.color = "#00ff00";
+    // subtitulo.style.color = "#00ff00";
     subtitulo.innerText += "Distancia Entrada ≈ " + puntos[0].getAttribute("distance") + "\n";
-    subtitulo.innerText += "Distancia Entrada ≈ " + puntos[0].getAttribute("distanceMsg") + "\n";
+    // subtitulo.innerText += "Distancia Entrada ≈ " + puntos[0].getAttribute("distanceMsg") + "\n";
   } else {
     subtitulo.innerText += "SIN DATOS";
   }
   if (puntos[1].getAttribute("distanceMsg") != undefined) {
     console.log(2, puntos[1].getAttribute("distanceMsg"));
-    subtitulo.style.color = "#00ff00";
+    // subtitulo.style.color = "#00ff00";
     subtitulo.innerText += "Distancia Tanque ≈ " + puntos[1].getAttribute("distance") + "\n";
   }
   if (puntos[2].getAttribute("distanceMsg") != undefined) {
     console.log(3, puntos[2].getAttribute("distanceMsg"));
-    subtitulo.style.color = "#00ff00";
+    // subtitulo.style.color = "#00ff00";
     subtitulo.innerText += "Distancia UPL ≈ " + puntos[2].getAttribute("distance") + "\n";
   }
   if (imprimirD) {
