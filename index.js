@@ -11,8 +11,8 @@ subtitulo.style.color = "#ffffff";
 titulo.style.textAlign = "center";
 subtitulo.style.textAlign = "center";
 
-titulo.innerText = "Version v0.9";
-subtitulo.innerText = "Espere";
+titulo.innerText = "Version v0.10";
+subtitulo.innerText = "espere";
 
 texto.append(titulo);
 texto.append(subtitulo);
@@ -52,9 +52,6 @@ let first = true;
 threex.on("gpsupdate", (pos) => {
   console.log("gpsupdate");
   if (first) {
-    subtitulo = "";
-    subtitulo += "Longitud: " + pos.coords.longitude + "\n";
-    subtitulo += "Laditude: " + pos.coords.latitude + "\n";
     setupObjects(pos.coords.longitude, pos.coords.latitude);
     first = false;
   }
@@ -125,12 +122,17 @@ function resizeUpdate() {
 
 function setupObjects(longitude, latitude) {
   // Use position of first GPS update (fake or real)
+  if (first) {
+    subtitulo = "";
+    subtitulo += "Longitud: " + longitude + "\n";
+    subtitulo += "Laditude: " + latitude + "\n";
+  }
   const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
   const material2 = new THREE.MeshBasicMaterial({ color: 0xffff00 });
   const material3 = new THREE.MeshBasicMaterial({ color: 0x0000ff });
-  // const material4 = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-  threex.add(new THREE.Mesh(geom, material), -57.004631025617414, -34.88441873744777); // slightly north
-  threex.add(new THREE.Mesh(geom, material2), -57.005834, -34.886436); // slightly south
-  threex.add(new THREE.Mesh(geom, material3), -57.004962, -34.887017); // slightly west
-  // threex.add(new THREE.Mesh(geom, material4), longitude + 0.001, latitude); // slightly east
+  const material4 = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+  threex.add(new THREE.Mesh(geom, material), longitude, latitude + 0.001); // slightly north
+  threex.add(new THREE.Mesh(geom, material2), longitude, latitude - 0.001); // slightly south
+  threex.add(new THREE.Mesh(geom, material3), longitude - 0.001, latitude); // slightly west
+  threex.add(new THREE.Mesh(geom, material4), longitude + 0.001, latitude); // slightly east
 }
