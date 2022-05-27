@@ -11,11 +11,11 @@ subtitulo.style.color = "#ffffff";
 titulo.style.textAlign = "center";
 subtitulo.style.textAlign = "center";
 
-titulo.innerText = "Version v0.7";
-subtitulo.innerText = "Cargando ubicacion";
+titulo.innerText = "Version v0.8";
+subtitulo.innerText = "Espere";
 
 texto.append(titulo);
-// texto.append(subtitulo);
+texto.append(subtitulo);
 document.body.append(texto);
 
 function isMobile() {
@@ -52,6 +52,8 @@ let first = true;
 threex.on("gpsupdate", (pos) => {
   console.log("gpsupdate");
   if (first) {
+    subtitulo += "Longitud: " + pos.coords.longitude + "\n";
+    subtitulo += "Laditude: " + pos.coords.latitude + "\n";
     setupObjects(pos.coords.longitude, pos.coords.latitude);
     first = false;
   }
