@@ -11,7 +11,7 @@ subtitulo.style.color = "#ffffff";
 titulo.style.textAlign = "center";
 subtitulo.style.textAlign = "center";
 
-titulo.innerText = "Version v0.8";
+titulo.innerText = "Version v0.9";
 subtitulo.innerText = "Espere";
 
 texto.append(titulo);
@@ -52,6 +52,7 @@ let first = true;
 threex.on("gpsupdate", (pos) => {
   console.log("gpsupdate");
   if (first) {
+    subtitulo = "";
     subtitulo += "Longitud: " + pos.coords.longitude + "\n";
     subtitulo += "Laditude: " + pos.coords.latitude + "\n";
     setupObjects(pos.coords.longitude, pos.coords.latitude);
