@@ -1,6 +1,6 @@
 import * as THREE from 'https://unpkg.com/three@0.122.0/build/three.module.js';
 
-export class ObjetoModelo{
+export class Particula{
 
     constructor(geo,mat){
         this.velMax = 0.4;
