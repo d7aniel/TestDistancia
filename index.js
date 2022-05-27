@@ -11,7 +11,7 @@ subtitulo.style.color = "#ffffff";
 titulo.style.textAlign = "center";
 subtitulo.style.textAlign = "center";
 
-titulo.innerText = "Version v0.11";
+titulo.innerText = "Version v0.12";
 subtitulo.innerText = "espere";
 
 texto.append(titulo);
@@ -123,9 +123,9 @@ function resizeUpdate() {
 function setupObjects(longitude, latitude) {
   // Use position of first GPS update (fake or real)
   if (first) {
-    subtitulo = "";
-    subtitulo += "Longitud: " + longitude + "\n";
-    subtitulo += "Laditude: " + latitude + "\n";
+    subtitulo.innerText = "";
+    subtitulo.innerText += "Longitud: " + longitude + "\n";
+    subtitulo.innerText += "Laditude: " + latitude + "\n";
   }
   const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
   const material2 = new THREE.MeshBasicMaterial({ color: 0xffff00 });
