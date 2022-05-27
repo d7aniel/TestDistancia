@@ -1,25 +1,5 @@
-console.log("v.29")
-import * as THREE from 'https://unpkg.com/three@0.122.0/build/three.module.js';
-// import {cargarModelo,cargarModeloConAnimacion} from './CargarModelo.js';
-// import {ObjetoModelo} from './Particula.js';
-
-//
-// import { EffectComposer } from 'https://unpkg.com/three@0.122.0/examples/jsm/postprocessing/EffectComposer.js';
-// import { RenderPass } from 'https://unpkg.com/three@0.122.0/examples/jsm/postprocessing/RenderPass.js';
-// import { ShaderPass } from 'https://unpkg.com/three@0.122.0/examples/jsm/postprocessing/ShaderPass.js';
-// import { UnrealBloomPass } from 'https://unpkg.com/three@0.122.0/examples/jsm/postprocessing/UnrealBloomPass.js';
-// const ENTIRE_SCENE = 0, BLOOM_SCENE = 1;
-// const darkMaterial = new THREE.MeshBasicMaterial( { color: "black" } );
-// const materials = {};
-// const bloomLayer = new THREE.Layers();
-// bloomLayer.set( BLOOM_SCENE );
-// const params = {
-// 	exposure: 1,
-// 	bloomStrength: 1.5,
-// 	bloomThreshold: 0,
-// 	bloomRadius: 0
-// };
-
+console.log("v.30");
+import * as THREE from "https://unpkg.com/three@0.122.0/build/three.module.js";
 
 var obj;
 var modelo = new THREE.Object3D();
@@ -29,29 +9,19 @@ var simularPos = false;
 var usarGeoAR = true;
 var usarBloom = false;
 var lista = [
-    {lt:-34.901916100509666,lg:-57.96917396557861},//casa mia
-    {lt:-34.90730360836868,lg:-57.967970584966736},
-    {lt:-34.92519149091702,lg:-57.94000441367463},//casa gabriel
-    {lt:-42.788091056592606, lg:-65.0034648805737},// el sitio,
-    {lt:-34.915539,lg:-57.960809},
-    {lt:-34.540633213374726,lg:-58.49606175008985},
-    {lt:-43.30769783097881, lg:-65.71072360787568}
+  { lt: -34.884431, lg: -57.00466 }, //entrada -34.884431, -58.004660
+  { lt: -34.886436, lg: -57.005834 }, //tanque de agua -34.886436, -58.005834
+  { lt: -34.887017, lg: -57.004962 }, //laboratorio UPL -34.887017, -58.004962
 ];
-var posLuces = [
-  new THREE.Vector2(0, 0),
-  new THREE.Vector2(105, 0),
-  new THREE.Vector2(-105, 0),
-  new THREE.Vector2(0, -105),
-  new THREE.Vector2(0, 105)
-];
+var posLuces = [new THREE.Vector2(0, 0), new THREE.Vector2(105, 0), new THREE.Vector2(-105, 0), new THREE.Vector2(0, -105), new THREE.Vector2(0, 105)];
 var indice;
-var escena = document.querySelector('a-scene');
+var escena = document.querySelector("a-scene");
 var objeto = new THREE.Object3D();
-console.log("version 3 con varios puntos nuevitaaa con sistema mejorado por distancia ")
-for (let i=0; i<posLuces.length; i++) {
-    let luz1 = new THREE.PointLight( 0xffffff, 3, 100 );
-    luz1.position.set(posLuces[i].x,50,posLuces[i].y);
-    objeto.add( luz1 );
+console.log("version 3 con varios puntos nuevitaaa con sistema mejorado por distancia ");
+for (let i = 0; i < posLuces.length; i++) {
+  let luz1 = new THREE.PointLight(0xffffff, 3, 100);
+  luz1.position.set(posLuces[i].x, 50, posLuces[i].y);
+  objeto.add(luz1);
 }
 console.log(escena);
 //
@@ -94,30 +64,28 @@ console.log(escena);
 
 //sphere.layers.enable( BLOOM_SCENE );
 
-
 var puntos = [];
-for(var i=0;i<lista.length;i++){
-    puntos[i] = document.createElement('a-entity');//document.getElementById('plaza');
-    // puntos[i].setAttribute('gltf-model','#tree');
-    // puntos[i].setAttribute('animation-mixer','');
-	//puntos[i].setAttribute('gltf-model','url(./modelo/dino5.glb)');
-    if(usarGeoAR){
-        puntos[i].setAttribute('id','punto'+i);
-        console.log("creando "+`latitude: ${lista[i].lt}; longitude: ${lista[i].lg};`);
-        puntos[i].setAttribute('gps-entity-place', `latitude: ${lista[i].lt}; longitude: ${lista[i].lg};`);
-		puntos[i].setAttribute("scale","0.1 0.1 0.1");
-    }else{
-        // <a-entity =""></a-entity>
-        puntos[i].setAttribute("scale","0.004 0.004 0.004");
-        puntos[i].setAttribute("position","0 0 -4");
-    }
-    escena.appendChild(puntos[i]);
+for (var i = 0; i < lista.length; i++) {
+  puntos[i] = document.createElement("a-entity"); //document.getElementById('plaza');
+  // puntos[i].setAttribute('gltf-model','#tree');
+  // puntos[i].setAttribute('animation-mixer','');
+  //puntos[i].setAttribute('gltf-model','url(./modelo/dino5.glb)');
+  if (usarGeoAR) {
+    puntos[i].setAttribute("id", "punto" + i);
+    console.log("creando " + `latitude: ${lista[i].lt}; longitude: ${lista[i].lg};`);
+    puntos[i].setAttribute("gps-entity-place", `latitude: ${lista[i].lt}; longitude: ${lista[i].lg};`);
+    puntos[i].setAttribute("scale", "0.001 0.001 0.001");
+  } else {
+    // <a-entity =""></a-entity>
+    puntos[i].setAttribute("scale", "0.004 0.004 0.004");
+    puntos[i].setAttribute("position", "0 0 -4");
+  }
+  escena.appendChild(puntos[i]);
 }
-
 
 //cargarModelo('./modelo/panredu.glb',modelo[i]);
 //modelo[i].scale.set(15,15,15);
-    //escena.appendChild(punto);
+//escena.appendChild(punto);
 /*
 var mixer = {};
 cargarModeloConAnimacion('./modelo/dino4.glb',modelo,mixer);
@@ -154,14 +122,13 @@ obj = new ObjetoModelo();
 objeto.add(obj.modelo);
 // }*/
 
-
-var texto =  document.createElement("div");
+var texto = document.createElement("div");
 var titulo = document.createElement("h1");
 var subtitulo = document.createElement("h2");
 texto.style.position = "absolute";
 texto.style.top = "10px";
 texto.style.left = "50%";
-texto.style.transform= "translate(-50%,0%)";
+texto.style.transform = "translate(-50%,0%)";
 
 titulo.style.color = "#ffffff";
 subtitulo.style.color = "#ffffff";
@@ -169,17 +136,16 @@ titulo.style.textAlign = "center";
 subtitulo.style.textAlign = "center";
 
 titulo.innerText = "Espere un momento";
-subtitulo.innerText = "Cargando ubicacion"
-
+subtitulo.innerText = "Cargando ubicacion";
 
 texto.append(titulo);
 texto.append(subtitulo);
 document.body.append(texto);
 
 var imprimirD = true;
-function animar(){
-    requestAnimationFrame(animar);
-    /*if(modelo.children.length > 0){
+function animar() {
+  requestAnimationFrame(animar);
+  /*if(modelo.children.length > 0){
         for (let i=0; i<cant; i++) {
             if(obj.sinModelo){
                 obj.modelo.add(modelo.clone());
@@ -187,61 +153,67 @@ function animar(){
             }
         }
     }*/
-    if(puntos[0].getAttribute('distanceMsg')!=undefined){
-        subtitulo.innerText = "Distancia ≈ "+puntos[0].getAttribute('distanceMsg');
-        //subtitulo.innerText = puntos[1].getAttribute('distanceMsg');
-    }
-    if(imprimirD){
-        var imprimir = true;
-        if(usarGeoAR && !simularPos){
-            for(var i=0;i<puntos.length;i++){
-                if(puntos[i].getAttribute('distance')==undefined){
-                    imprimir=false;
-                }
-            }
-        }
-        if(imprimir){
-            var menor = parseFloat(puntos[0].getAttribute('distance'))
-            var indice = 0;
-            for(var i=1;i<puntos.length;i++){
-                console.log(puntos[i].getAttribute('distance'));
-                if(parseFloat(puntos[i].getAttribute('distance'))<menor){
-                    indice = i
-                    menor = parseFloat(puntos[i].getAttribute('distance'));
-                }
-            }
-            for(var i=0;i<puntos.length;i++){
-                if(i!=indice){
-                    puntos[i].parentNode.removeChild(puntos[i]);
-                }else{
-                    console.log("cargando modelo");
-                    let modelo = document.createElement('a-entity');//document.getElementById('plaza');
-                    // puntos[i].setAttribute('gltf-model','#tree');
-                    modelo.setAttribute('animation-mixer','');
-                    modelo.object3D.add( objeto );
-                    //puntos[i].setAttribute('gltf-model','url(./modelo/dino5.glb)');
-                    modelo.setAttribute('gltf-model','url(./modelo/dino6.glb)');
-                    puntos[i].appendChild(modelo);
-                }
-            }
-            console.log(puntos[indice]);
-            titulo.innerText = ""+indice;
-            // titulo.style.color = "#ffff00";
-            // subtitulo.style.color = "#ffff00";
-            titulo.style.display = "none";
-            subtitulo.style.display = "none";
-            // titulo.remove();
-            //puntos[indice].object3D.add( objeto );
-            texto.remove();
-            imprimirD = false;
-        }
-    }
 
-/*    if(usarBloom){
+  subtitulo.innerText = "";
+  if (puntos[0].getAttribute("distanceMsg") != undefined) {
+    subtitulo.innerText += "Distancia Entrada ≈ " + puntos[0].getAttribute("distanceMsg") + "\n";
+  }
+  if (puntos[1].getAttribute("distanceMsg") != undefined) {
+    subtitulo.innerText += "Distancia Tanque ≈ " + puntos[1].getAttribute("distanceMsg") + "\n";
+  }
+  if (puntos[2].getAttribute("distanceMsg") != undefined) {
+    subtitulo.innerText += "Distancia UPL ≈ " + puntos[2].getAttribute("distanceMsg") + "\n";
+  }
+  if (imprimirD) {
+    var imprimir = true;
+    if (usarGeoAR && !simularPos) {
+      for (var i = 0; i < puntos.length; i++) {
+        if (puntos[i].getAttribute("distance") == undefined) {
+          imprimir = false;
+        }
+      }
+    }
+    if (imprimir) {
+      var menor = parseFloat(puntos[0].getAttribute("distance"));
+      var indice = 0;
+      for (var i = 1; i < puntos.length; i++) {
+        console.log(puntos[i].getAttribute("distance"));
+        if (parseFloat(puntos[i].getAttribute("distance")) < menor) {
+          indice = i;
+          menor = parseFloat(puntos[i].getAttribute("distance"));
+        }
+      }
+      for (var i = 0; i < puntos.length; i++) {
+        if (i != indice) {
+          puntos[i].parentNode.removeChild(puntos[i]);
+        } else {
+          console.log("cargando modelo");
+          let modelo = document.createElement("a-entity"); //document.getElementById('plaza');
+          // puntos[i].setAttribute('gltf-model','#tree');
+          modelo.setAttribute("animation-mixer", "");
+          modelo.object3D.add(objeto);
+          //puntos[i].setAttribute('gltf-model','url(./modelo/dino5.glb)');
+          modelo.setAttribute("gltf-model", "url(./modelo/dino6.glb)");
+          puntos[i].appendChild(modelo);
+        }
+      }
+      console.log(puntos[indice]);
+      titulo.innerText = "" + indice;
+      // titulo.style.color = "#ffff00";
+      // subtitulo.style.color = "#ffff00";
+      titulo.style.display = "none";
+      subtitulo.style.display = "none";
+      // titulo.remove();
+      //puntos[indice].object3D.add( objeto );
+      texto.remove();
+      imprimirD = false;
+    }
+  }
+
+  /*    if(usarBloom){
         renderBloom(true);
     	finalComposer.render();
     }*/
-
 }
 animar();
 /*
