@@ -135,7 +135,7 @@ subtitulo.style.color = "#ffffff";
 titulo.style.textAlign = "center";
 subtitulo.style.textAlign = "center";
 
-titulo.innerText = "Espere un momento";
+titulo.innerText = "Espere un momento v0.2";
 subtitulo.innerText = "Cargando ubicacion";
 
 texto.append(titulo);
@@ -184,28 +184,21 @@ function animar() {
         }
       }
       for (var i = 0; i < puntos.length; i++) {
-        if (i != indice) {
-          puntos[i].parentNode.removeChild(puntos[i]);
-        } else {
-          console.log("cargando modelo");
-          let modelo = document.createElement("a-entity"); //document.getElementById('plaza');
-          // puntos[i].setAttribute('gltf-model','#tree');
-          modelo.setAttribute("animation-mixer", "");
-          modelo.object3D.add(objeto);
-          //puntos[i].setAttribute('gltf-model','url(./modelo/dino5.glb)');
-          modelo.setAttribute("gltf-model", "url(./modelo/dino6.glb)");
-          puntos[i].appendChild(modelo);
-        }
+        // if (i != indice) {
+        //   puntos[i].parentNode.removeChild(puntos[i]);
+        // } else {
+        console.log("cargando modelo");
+        modelo.setAttribute("animation-mixer", "");
+        modelo.object3D.add(objeto);
+        modelo.setAttribute("gltf-model", "url(./modelo/dino6.glb)");
+        puntos[i].appendChild(modelo);
+        // }
       }
       console.log(puntos[indice]);
       titulo.innerText = "" + indice;
-      // titulo.style.color = "#ffff00";
-      // subtitulo.style.color = "#ffff00";
-      titulo.style.display = "none";
-      subtitulo.style.display = "none";
-      // titulo.remove();
-      //puntos[indice].object3D.add( objeto );
-      texto.remove();
+      //   titulo.style.display = "none";
+      //   subtitulo.style.display = "none";
+      //   texto.remove();
       imprimirD = false;
     }
   }
