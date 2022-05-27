@@ -11,7 +11,7 @@ subtitulo.style.color = "#ffffff";
 titulo.style.textAlign = "center";
 subtitulo.style.textAlign = "center";
 
-titulo.innerText = "Version v0.13";
+titulo.innerText = "Version v0.14";
 subtitulo.innerText = "espere";
 
 texto.append(titulo);
@@ -132,7 +132,7 @@ function setupObjects(longitude, latitude) {
   const material3 = new THREE.MeshBasicMaterial({ color: 0x0000ff });
   const material4 = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
   threex.add(new THREE.Mesh(geom, material), -58.004631025617414, -34.88441873744777); // slightly north
-  threex.add(new THREE.Mesh(geom, material2), longitude, latitude - 0.001); // slightly south
-  threex.add(new THREE.Mesh(geom, material3), longitude - 0.001, latitude); // slightly west
+  threex.add(new THREE.Mesh(geom, material2), -58.005845, -34.88645); // slightly south
+  threex.add(new THREE.Mesh(geom, material3), -58.004916, -34.887014); // slightly west
   threex.add(new THREE.Mesh(geom, material4), longitude + 0.001, latitude); // slightly east
 }
