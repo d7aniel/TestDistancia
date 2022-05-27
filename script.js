@@ -135,7 +135,7 @@ subtitulo.style.color = "#ffffff";
 titulo.style.textAlign = "center";
 subtitulo.style.textAlign = "center";
 
-titulo.innerText = "Espere un momento v0.2";
+titulo.innerText = "Espere un momento v0.3";
 subtitulo.innerText = "Cargando ubicacion";
 
 texto.append(titulo);
@@ -156,12 +156,17 @@ function animar() {
 
   subtitulo.innerText = "";
   if (puntos[0].getAttribute("distanceMsg") != undefined) {
+    console.log(1, puntos[0].getAttribute("distanceMsg"));
     subtitulo.innerText += "Distancia Entrada ≈ " + puntos[0].getAttribute("distanceMsg") + "\n";
+  } else {
+    console.log("asdasdasd");
   }
   if (puntos[1].getAttribute("distanceMsg") != undefined) {
+    console.log(2, puntos[1].getAttribute("distanceMsg"));
     subtitulo.innerText += "Distancia Tanque ≈ " + puntos[1].getAttribute("distanceMsg") + "\n";
   }
   if (puntos[2].getAttribute("distanceMsg") != undefined) {
+    console.log(3, puntos[2].getAttribute("distanceMsg"));
     subtitulo.innerText += "Distancia UPL ≈ " + puntos[2].getAttribute("distanceMsg") + "\n";
   }
   if (imprimirD) {
