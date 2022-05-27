@@ -6,6 +6,7 @@ var particulas = [];
 var panuelo = new THREE.Object3D();
 var cant = 15;
 var radio = 70;
+var elegido = -1;
 var lista = [
   { lt: -34.9275039, lg: -57.9371359 },
   { lt: -34.903582, lg: -57.969758 },
@@ -17,7 +18,7 @@ var lista = [
   { lt: -42.78600319251691, lg: -65.00757861584869 },
   { lt: -38.04082056323792, lg: -57.54760432137781 }, //Av. Edison 301, B7603BKG Mar del Plata, Provincia de Buenos Aires
   { lt: -34.6084608, lg: -58.3721794 }, //plaza de mayo
-  { lt: -0.1963315, lg: -78.5013965 },
+  // { lt: -0.1963315, lg: -78.5013965 },
   { lt: -34.886436, lg: -58.005834 },
 
   //{lt:-34.903582,lg:-57.969758},
@@ -64,8 +65,8 @@ texto.style.top = "10px";
 texto.style.left = "50%";
 texto.style.transform = "translate(-50%,0%)";
 
-titulo.style.color = "#ff0000";
-subtitulo.style.color = "#ff0000";
+titulo.style.color = "#ffffff";
+subtitulo.style.color = "#ffffff";
 titulo.style.textAlign = "center";
 subtitulo.style.textAlign = "center";
 
@@ -87,6 +88,7 @@ function animar() {
       }
     }
   }
+
   if (imprimirD) {
     var imprimir = true;
     for (var i = 0; i < puntos.length; i++) {
@@ -101,13 +103,21 @@ function animar() {
         console.log(puntos[i].getAttribute("distance"));
         if (parseFloat(puntos[i].getAttribute("distance")) < menor) {
           indice = i;
+          elegido = i;
           menor = parseFloat(puntos[i].getAttribute("distance"));
         }
       }
       console.log(puntos[indice]);
       puntos[indice].object3D.add(objeto);
-      texto.remove();
+      // texto.remove();
       imprimirD = false;
+    }
+  } else {
+    if (elegido >= 0) {
+      if (puntos[elegido].getAttribute("distanceMsg") != undefined) {
+        titulo.innerText = "";
+        subtitulo.innerText = "Distancia ≈ " + puntos[elegido].getAttribute("distanceMsg") + "\n";
+      }
     }
   }
   mover();
