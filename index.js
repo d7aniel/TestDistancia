@@ -48,7 +48,7 @@ function isMobile() {
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(80, 2, 0.1, 50000);
 const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector("#canvas1") });
-const geom = new THREE.BoxGeometry(5, 20, 5);
+const geom = new THREE.BoxGeometry(1, 1, 1);
 const threex = new THREEx.LocationBased(scene, camera);
 // You can change the minimum GPS accuracy needed to register a position - by default 1000m
 //const threex = new THREEx.LocationBased(scene, camera. { gpsMinAccuracy: 30 } );
@@ -182,18 +182,60 @@ function setupObjects(longitude, latitude) {
   panuelo.scale.set(tamPanuelo, tamPanuelo, tamPanuelo);
 
   let objeto = new THREE.Object3D();
-  for (let i = 0; i < poss.length; i++) {
-    let luz1 = new THREE.PointLight(0xffffff, 4, 40);
-    let luz2 = new THREE.PointLight(0xffffff, 4, 40);
-    luz1.position.set(poss[i].x, 30, poss[i].y);
-    luz2.position.set(poss[i].x, -30, poss[i].y);
+  // for (let i = 0; i < poss.length; i++) {
+  //   let luz1 = new THREE.PointLight(0xffffff, 4, 40);
+  //   let luz2 = new THREE.PointLight(0xffffff, 4, 40);
+  //   luz1.position.set(poss[i].x, 30, poss[i].y);
+  //   luz2.position.set(poss[i].x, -30, poss[i].y);
+  //   const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+  //   const material2 = new THREE.MeshBasicMaterial({ color: 0xff00ff });
+  //   let punto = new THREE.Mesh(geom, material);
+  //   let punto2 = new THREE.Mesh(geom, material2);
+  //   punto.position.set(poss[i].x, 30, poss[i].y);
+  //   punto2.position.set(poss[i].x, -30, poss[i].y);
+  //   objeto.add(luz1);
+  //   objeto.add(luz2);
+  //   objeto.add(punto);
+  //   objeto.add(punto2);
+  // }
+
+  for (let i = 0; i < 360; i += 60) {
+    let luz1 = new THREE.PointLight(0xffffff, 4, 35);
+    let luz2 = new THREE.PointLight(0xffffff, 4, 35);
+    let luz3 = new THREE.PointLight(0xffffff, 4, 35);
+    let luz4 = new THREE.PointLight(0xffffff, 4, 35);
+    let x = 60 * Math.cos(THREE.MathUtils.degToRad(i));
+    let y = 60 * Math.sin(THREE.MathUtils.degToRad(i));
+    let x2 = 30 * Math.cos(THREE.MathUtils.degToRad(i));
+    let y2 = 30 * Math.sin(THREE.MathUtils.degToRad(i));
+    // const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+    // const material2 = new THREE.MeshBasicMaterial({ color: 0xff00ff });
+    luz1.position.set(x, 30, y);
+    luz2.position.set(x, -30, y);
+    luz3.position.set(x2, 30, y2);
+    luz4.position.set(x2, -30, y2);
+    // let punto = new THREE.Mesh(geom, material);
+    // let punto2 = new THREE.Mesh(geom, material2);
+    // let punto3 = new THREE.Mesh(geom, material2);
+    // let punto4 = new THREE.Mesh(geom, material);
+    // punto.position.set(x, 30, y);
+    // punto2.position.set(x, -30, y);
+    // punto3.position.set(x2, 30, y2);
+    // punto4.position.set(x2, -30, y2);
     objeto.add(luz1);
     objeto.add(luz2);
+    objeto.add(luz3);
+    objeto.add(luz4);
+    // objeto.add(punto);
+    // objeto.add(punto2);
+    // objeto.add(punto3);
+    // objeto.add(punto4);
   }
+
   // const light = new THREE.AmbientLight(0x909090); // soft white light
   // objeto.add(light);
   const lightHemi = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.8);
-  scene.add(lightHemi);
+  objeto.add(lightHemi);
   // let cant = 10;
   for (let i = 0; i < cant; i++) {
     particulas[i] = new Particula();
