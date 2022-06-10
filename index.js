@@ -3,16 +3,26 @@ import { lista } from "./lista.js";
 import { texto } from "./texto.js";
 import { cargarModelo } from "./CargarModelo.js";
 import { Particula } from "./Particula.js";
+let d = 60;
 var poss = [
   new THREE.Vector2(0, 0),
-  new THREE.Vector2(55, 0),
-  new THREE.Vector2(-55, 0),
-  new THREE.Vector2(0, -55),
-  new THREE.Vector2(0, 55),
-  new THREE.Vector2(125, 0),
-  new THREE.Vector2(-125, 0),
-  new THREE.Vector2(0, -125),
-  new THREE.Vector2(0, 125),
+  new THREE.Vector2(d, d),
+  new THREE.Vector2(-d, d),
+  new THREE.Vector2(d, -d),
+  new THREE.Vector2(-d, -d),
+  new THREE.Vector2(d, 0),
+  new THREE.Vector2(-d, 0),
+  new THREE.Vector2(0, -d),
+  new THREE.Vector2(0, d),
+  // new THREE.Vector2(125, 0),
+  // new THREE.Vector2(-125, 0),
+  // new THREE.Vector2(0, -125),
+  // new THREE.Vector2(0, 125),
+  // new THREE.Vector2(0, 55),
+  // new THREE.Vector2(125, 125),
+  // new THREE.Vector2(-125, -125),
+  // new THREE.Vector2(125, -125),
+  // new THREE.Vector2(-125, 125),
   // new THREE.Vector2(155, 0),
   // new THREE.Vector2(-155, 0),
   // new THREE.Vector2(0, -155),
@@ -173,13 +183,17 @@ function setupObjects(longitude, latitude) {
 
   let objeto = new THREE.Object3D();
   for (let i = 0; i < poss.length; i++) {
-    let luz1 = new THREE.PointLight(0xffffff, 4, 150);
-    let luz2 = new THREE.PointLight(0xddaa88, 4, 150);
+    let luz1 = new THREE.PointLight(0xffffff, 4, 40);
+    let luz2 = new THREE.PointLight(0xffffff, 4, 40);
     luz1.position.set(poss[i].x, 30, poss[i].y);
     luz2.position.set(poss[i].x, -30, poss[i].y);
     objeto.add(luz1);
     objeto.add(luz2);
   }
+  // const light = new THREE.AmbientLight(0x909090); // soft white light
+  // objeto.add(light);
+  const lightHemi = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.8);
+  scene.add(lightHemi);
   // let cant = 10;
   for (let i = 0; i < cant; i++) {
     particulas[i] = new Particula();
