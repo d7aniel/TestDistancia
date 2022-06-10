@@ -160,8 +160,11 @@ function setupObjects(longitude, latitude) {
   let objeto = new THREE.Object3D();
   for (let i = 0; i < poss.length; i++) {
     let luz1 = new THREE.PointLight(0xffffff, 4, 115);
+    let luz2 = new THREE.PointLight(0xff9900, 4, 115);
     luz1.position.set(poss[i].x, 30, poss[i].y);
+    luz2.position.set(poss[i].x, -30, poss[i].y);
     objeto.add(luz1);
+    objeto.add(luz2);
   }
   // let cant = 10;
   for (let i = 0; i < cant; i++) {
