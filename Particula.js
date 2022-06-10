@@ -2,7 +2,7 @@ import * as THREE from "https://unpkg.com/three@0.122.0/build/three.module.js";
 
 export class Particula {
   constructor(geo, mat) {
-    this.velMax = 0.4;
+    this.velMax = 0.1;
     this.pos = new THREE.Vector2(this.random(-1.5, 1.5), this.random(-1.5, 1.5));
     this.vel = new THREE.Vector2(this.random(-this.velMax, this.velMax), this.random(-this.velMax, this.velMax));
     this.modelo = new THREE.Object3D();

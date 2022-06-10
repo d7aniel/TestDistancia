@@ -5,6 +5,10 @@ import { cargarModelo } from "./CargarModelo.js";
 import { Particula } from "./Particula.js";
 var poss = [new THREE.Vector2(0, 0), new THREE.Vector2(105, 0), new THREE.Vector2(-105, 0), new THREE.Vector2(0, -105), new THREE.Vector2(0, 105)];
 
+let limiteInterno = 10;
+let limiteExterno = 30;
+let limiteColision = 4;
+let tamPanuelo = 6;
 console.log(lista);
 console.log(texto);
 
@@ -29,7 +33,7 @@ if (isMobile()) {
   orientationControls = new THREEx.DeviceOrientationControls(camera);
 }
 
-// const oneDegAsRad = THREE.Math.degToRad(1);
+const oneDegAsRad = THREE.Math.degToRad(1);
 // let fake = null;
 let first = true;
 
@@ -104,13 +108,13 @@ function render(time) {
 
 function mover() {
   for (let i = 0; i < particulas.length; i++) {
-    let acc = particulas[i].alejar(poss[0], 4);
-    let acc2 = particulas[i].acercar(poss[0], 20);
+    let acc = particulas[i].alejar(poss[0], limiteInterno);
+    let acc2 = particulas[i].acercar(poss[0], limiteExterno);
     particulas[i].vel.add(acc);
     particulas[i].vel.add(acc2);
     for (let j = 0; j < particulas.length; j++) {
       if (i != j) {
-        let acc3 = particulas[i].alejar(particulas[j].pos, 2);
+        let acc3 = particulas[i].alejar(particulas[j].pos, limiteColision);
         particulas[i].vel.add(acc3);
       }
     }
@@ -146,12 +150,12 @@ function setupObjects(longitude, latitude) {
     texto.setSubtitulo(t);
   }
   cargarModelo("./modelo/panredu2.glb", panuelo);
-  panuelo.scale.set(3, 3, 3);
+  panuelo.scale.set(tamPanuelo, tamPanuelo, tamPanuelo);
 
   let objeto = new THREE.Object3D();
   for (let i = 0; i < poss.length; i++) {
-    let luz1 = new THREE.PointLight(0xffffff, 3, 100);
-    luz1.position.set(poss[i].x, 50, poss[i].y);
+    let luz1 = new THREE.PointLight(0xffffff, 4, 200);
+    luz1.position.set(poss[i].x, 30, poss[i].y);
     objeto.add(luz1);
   }
   let cant = 10;

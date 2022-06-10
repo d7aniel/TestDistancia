@@ -13,7 +13,7 @@ class Texto {
     this.titulo.style.textAlign = "center";
     this.subtitulo.style.textAlign = "center";
 
-    this.titulo.innerText = "Version v0.18";
+    this.titulo.innerText = "Version v0.19";
     this.subtitulo.innerText = "espere";
 
     this.texto.append(this.titulo);
