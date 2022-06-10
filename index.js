@@ -148,10 +148,11 @@ let panuelo = new THREE.Object3D();
 function setupObjects(longitude, latitude) {
   // Use position of first GPS update (fake or real)
   if (first) {
-    let t = "";
-    t += "Longitud: " + longitude + "\n";
-    t += "Laditude: " + latitude + "\n";
-    texto.setSubtitulo(t);
+    // let t = "";
+    // t += "Longitud: " + longitude + "\n";
+    // t += "Laditude: " + latitude + "\n";
+    // texto.setSubtitulo(t);
+    texto.remove();
   }
   cargarModelo("./modelo/panredu2.glb", panuelo);
   panuelo.scale.set(tamPanuelo, tamPanuelo, tamPanuelo);

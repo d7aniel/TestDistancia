@@ -9,12 +9,17 @@ class Texto {
     this.texto.style.transform = "translate(-50%,0%)";
 
     this.titulo.style.color = "#ffffff";
+    this.titulo.style.backgroundColor = "#000";
+    this.titulo.style.padding = "2px";
     this.subtitulo.style.color = "#ffffff";
+    this.subtitulo.style.backgroundColor = "#000";
+    this.subtitulo.style.padding = "2px";
+
     this.titulo.style.textAlign = "center";
     this.subtitulo.style.textAlign = "center";
 
-    this.titulo.innerText = "Version v0.21";
-    this.subtitulo.innerText = "espere";
+    this.titulo.innerText = "Los Pañuelos siguen rondando";
+    this.subtitulo.innerText = "cargando ubicacion";
 
     this.texto.append(this.titulo);
     this.texto.append(this.subtitulo);
@@ -26,6 +31,9 @@ class Texto {
   }
   setSubtitulo(txt) {
     this.subtitulo.innerText = txt;
+  }
+  remove() {
+    this.texto.remove();
   }
 }
 export let texto = new Texto();
