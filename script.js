@@ -18,10 +18,7 @@ var lista = [
   { lt: -42.78600319251691, lg: -65.00757861584869 },
   { lt: -38.04082056323792, lg: -57.54760432137781 }, //Av. Edison 301, B7603BKG Mar del Plata, Provincia de Buenos Aires
   { lt: -34.6084608, lg: -58.3721794 }, //plaza de mayo
-  // { lt: -0.1963315, lg: -78.5013965 },
   { lt: -34.886436, lg: -58.005834 },
-
-  //{lt:-34.903582,lg:-57.969758},
 ];
 var poss = [new THREE.Vector2(0, 0), new THREE.Vector2(105, 0), new THREE.Vector2(-105, 0), new THREE.Vector2(0, -105), new THREE.Vector2(0, 105)];
 

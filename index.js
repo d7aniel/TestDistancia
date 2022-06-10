@@ -1,22 +1,12 @@
-var texto = document.createElement("div");
-var titulo = document.createElement("h1");
-var subtitulo = document.createElement("h2");
-texto.style.position = "absolute";
-texto.style.top = "10px";
-texto.style.left = "50%";
-texto.style.transform = "translate(-50%,0%)";
+import * as THREE from "https://unpkg.com/three@0.122.0/build/three.module.js";
+import { lista } from "./lista.js";
+import { texto } from "./texto.js";
+import { cargarModelo } from "./CargarModelo.js";
+import { Particula } from "./Particula.js";
+var poss = [new THREE.Vector2(0, 0), new THREE.Vector2(105, 0), new THREE.Vector2(-105, 0), new THREE.Vector2(0, -105), new THREE.Vector2(0, 105)];
 
-titulo.style.color = "#ffffff";
-subtitulo.style.color = "#ffffff";
-titulo.style.textAlign = "center";
-subtitulo.style.textAlign = "center";
-
-titulo.innerText = "Version v0.14";
-subtitulo.innerText = "espere";
-
-texto.append(titulo);
-texto.append(subtitulo);
-document.body.append(texto);
+console.log(lista);
+console.log(texto);
 
 function isMobile() {
   if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -29,24 +19,18 @@ function isMobile() {
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(80, 2, 0.1, 50000);
 const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector("#canvas1") });
-
-const geom = new THREE.BoxGeometry(20, 20, 20);
-
+const geom = new THREE.BoxGeometry(5, 20, 5);
 const threex = new THREEx.LocationBased(scene, camera);
-
 // You can change the minimum GPS accuracy needed to register a position - by default 1000m
 //const threex = new THREEx.LocationBased(scene, camera. { gpsMinAccuracy: 30 } );
 const cam = new THREEx.WebcamRenderer(renderer, "#video1");
-
-const oneDegAsRad = THREE.Math.degToRad(1);
-
 let orientationControls;
-
 if (isMobile()) {
   orientationControls = new THREEx.DeviceOrientationControls(camera);
 }
 
-let fake = null;
+// const oneDegAsRad = THREE.Math.degToRad(1);
+// let fake = null;
 let first = true;
 
 threex.on("gpsupdate", (pos) => {
@@ -63,11 +47,11 @@ threex.on("gpserror", (code) => {
 
 // Uncomment to use a fake GPS location
 //fake = { lat: 51.05, lon : -0.72 };
-if (fake) {
-  threex.fakeGps(fake.lon, fake.lat);
-} else {
-  threex.startGps();
-}
+// if (fake) {
+//   threex.fakeGps(fake.lon, fake.lat);
+// } else {
+threex.startGps();
+// }
 
 requestAnimationFrame(render);
 
@@ -102,11 +86,42 @@ if (!isMobile()) {
 }
 
 function render(time) {
+  if (panuelo.children.length > 0) {
+    for (let i = 0; i < particulas.length; i++) {
+      if (particulas[i].sinModelo) {
+        particulas[i].modelo.add(panuelo.clone());
+        particulas[i].sinModelo = false;
+      }
+    }
+  }
+  mover();
   resizeUpdate();
   if (orientationControls) orientationControls.update();
   cam.update();
   renderer.render(scene, camera);
   requestAnimationFrame(render);
+}
+
+function mover() {
+  for (let i = 0; i < particulas.length; i++) {
+    let acc = particulas[i].alejar(poss[0], 4);
+    let acc2 = particulas[i].acercar(poss[0], 20);
+    particulas[i].vel.add(acc);
+    particulas[i].vel.add(acc2);
+    for (let j = 0; j < particulas.length; j++) {
+      if (i != j) {
+        let acc3 = particulas[i].alejar(particulas[j].pos, 2);
+        particulas[i].vel.add(acc3);
+      }
+    }
+    /*for (let j=0; j<4; j++) {
+      let acc3 =  particulas[i].alejar(poss[j+1], radio*0.5);
+      particulas[i].vel.add(acc3);
+    }*/
+    particulas[i].vel.clampLength(-particulas[i].velMax, particulas[i].velMax);
+    particulas[i].pos.add(particulas[i].vel);
+    particulas[i].actualizar();
+  }
 }
 
 function resizeUpdate() {
@@ -120,19 +135,46 @@ function resizeUpdate() {
   camera.updateProjectionMatrix();
 }
 
+let particulas = [];
+let panuelo = new THREE.Object3D();
 function setupObjects(longitude, latitude) {
   // Use position of first GPS update (fake or real)
   if (first) {
-    subtitulo.innerText = "";
-    subtitulo.innerText += "Longitud: " + longitude + "\n";
-    subtitulo.innerText += "Laditude: " + latitude + "\n";
+    let t = "";
+    t += "Longitud: " + longitude + "\n";
+    t += "Laditude: " + latitude + "\n";
+    texto.setSubtitulo(t);
   }
+  cargarModelo("./modelo/panredu2.glb", panuelo);
+  panuelo.scale.set(3, 3, 3);
+
+  let objeto = new THREE.Object3D();
+  for (let i = 0; i < poss.length; i++) {
+    let luz1 = new THREE.PointLight(0xffffff, 3, 100);
+    luz1.position.set(poss[i].x, 50, poss[i].y);
+    objeto.add(luz1);
+  }
+  let cant = 10;
+  for (let i = 0; i < cant; i++) {
+    particulas[i] = new Particula();
+    objeto.add(particulas[i].modelo);
+  }
+
+  let distMin = -1;
+  let indice = -1;
+  for (let i = 0; i < lista.length; i++) {
+    let distancia = Math.sqrt(Math.pow(lista[i].lt - latitude, 2) + Math.pow(lista[i].lg - longitude, 2));
+    if (distMin < 0 || distancia < distMin) {
+      distMin = distancia;
+      indice = i;
+    }
+  }
+  threex.add(objeto, lista[indice].lg, lista[indice].lt); // slightly north
   const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-  const material2 = new THREE.MeshBasicMaterial({ color: 0xffff00 });
-  const material3 = new THREE.MeshBasicMaterial({ color: 0x0000ff });
-  const material4 = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-  threex.add(new THREE.Mesh(geom, material), -58.004631025617414, -34.88441873744777); // slightly north
-  threex.add(new THREE.Mesh(geom, material2), -58.005845, -34.88645); // slightly south
-  threex.add(new THREE.Mesh(geom, material3), -58.004916, -34.887014); // slightly west
-  threex.add(new THREE.Mesh(geom, material4), longitude + 0.001, latitude); // slightly east
+  // const material2 = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+  // const material3 = new THREE.MeshBasicMaterial({ color: 0x0000ff });
+  // const material4 = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+  threex.add(new THREE.Mesh(geom, material), lista[indice].lg, lista[indice].lt); // slightly south
+  // threex.add(new THREE.Mesh(geom, material3), -58.004916, -34.887014); // slightly west
+  // threex.add(new THREE.Mesh(geom, material4), longitude + 0.001, latitude); // slightly east
 }
