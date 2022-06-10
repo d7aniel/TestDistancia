@@ -5,10 +5,11 @@ import { cargarModelo } from "./CargarModelo.js";
 import { Particula } from "./Particula.js";
 var poss = [new THREE.Vector2(0, 0), new THREE.Vector2(105, 0), new THREE.Vector2(-105, 0), new THREE.Vector2(0, -105), new THREE.Vector2(0, 105)];
 
-let limiteInterno = 10;
-let limiteExterno = 30;
+let limiteInterno = 15;
+let limiteExterno = 40;
 let limiteColision = 4;
 let tamPanuelo = 6;
+let cant = 20;
 console.log(lista);
 console.log(texto);
 
@@ -94,6 +95,8 @@ function render(time) {
     for (let i = 0; i < particulas.length; i++) {
       if (particulas[i].sinModelo) {
         particulas[i].modelo.add(panuelo.clone());
+        let escala = particulas[i].random(0.7, 1.2);
+        particulas[i].modelo.scale.set(escala, escala, escala);
         particulas[i].sinModelo = false;
       }
     }
@@ -123,6 +126,7 @@ function mover() {
       particulas[i].vel.add(acc3);
     }*/
     particulas[i].vel.clampLength(-particulas[i].velMax, particulas[i].velMax);
+    particulas[i].irAlFrente();
     particulas[i].pos.add(particulas[i].vel);
     particulas[i].actualizar();
   }
@@ -158,7 +162,7 @@ function setupObjects(longitude, latitude) {
     luz1.position.set(poss[i].x, 30, poss[i].y);
     objeto.add(luz1);
   }
-  let cant = 10;
+  // let cant = 10;
   for (let i = 0; i < cant; i++) {
     particulas[i] = new Particula();
     objeto.add(particulas[i].modelo);
@@ -174,11 +178,11 @@ function setupObjects(longitude, latitude) {
     }
   }
   threex.add(objeto, lista[indice].lg, lista[indice].lt); // slightly north
-  const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+  // const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
   // const material2 = new THREE.MeshBasicMaterial({ color: 0xffff00 });
   // const material3 = new THREE.MeshBasicMaterial({ color: 0x0000ff });
   // const material4 = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-  threex.add(new THREE.Mesh(geom, material), lista[indice].lg, lista[indice].lt); // slightly south
+  // threex.add(new THREE.Mesh(geom, material), lista[indice].lg, lista[indice].lt); // slightly south
   // threex.add(new THREE.Mesh(geom, material3), -58.004916, -34.887014); // slightly west
   // threex.add(new THREE.Mesh(geom, material4), longitude + 0.001, latitude); // slightly east
 }
