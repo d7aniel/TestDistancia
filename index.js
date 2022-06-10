@@ -159,7 +159,7 @@ function setupObjects(longitude, latitude) {
 
   let objeto = new THREE.Object3D();
   for (let i = 0; i < poss.length; i++) {
-    let luz1 = new THREE.PointLight(0xffffff, 4, 200);
+    let luz1 = new THREE.PointLight(0xffffff, 4, 115);
     luz1.position.set(poss[i].x, 30, poss[i].y);
     objeto.add(luz1);
   }
