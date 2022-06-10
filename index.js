@@ -3,7 +3,21 @@ import { lista } from "./lista.js";
 import { texto } from "./texto.js";
 import { cargarModelo } from "./CargarModelo.js";
 import { Particula } from "./Particula.js";
-var poss = [new THREE.Vector2(0, 0), new THREE.Vector2(105, 0), new THREE.Vector2(-105, 0), new THREE.Vector2(0, -105), new THREE.Vector2(0, 105)];
+var poss = [
+  new THREE.Vector2(0, 0),
+  new THREE.Vector2(55, 0),
+  new THREE.Vector2(-55, 0),
+  new THREE.Vector2(0, -55),
+  new THREE.Vector2(0, 55),
+  new THREE.Vector2(105, 0),
+  new THREE.Vector2(-105, 0),
+  new THREE.Vector2(0, -105),
+  new THREE.Vector2(0, 105),
+  // new THREE.Vector2(155, 0),
+  // new THREE.Vector2(-155, 0),
+  // new THREE.Vector2(0, -155),
+  // new THREE.Vector2(0, 155),
+];
 
 let limiteInterno = 15;
 let limiteExterno = 40;
@@ -159,8 +173,8 @@ function setupObjects(longitude, latitude) {
 
   let objeto = new THREE.Object3D();
   for (let i = 0; i < poss.length; i++) {
-    let luz1 = new THREE.PointLight(0xffffff, 4, 115);
-    let luz2 = new THREE.PointLight(0xff9900, 4, 115);
+    let luz1 = new THREE.PointLight(0xffffff, 3, 60);
+    let luz2 = new THREE.PointLight(0xddaa88, 4, 70);
     luz1.position.set(poss[i].x, 30, poss[i].y);
     luz2.position.set(poss[i].x, -30, poss[i].y);
     objeto.add(luz1);
